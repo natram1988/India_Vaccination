@@ -11,7 +11,7 @@ mydb = mysql.connector.connect(
 user = 'root',
 password = 'stock2018',
 host = '65.2.11.99',
-database = 'Vaccination',
+database = 'GetJabbed',
 port=3306)
 
 def get_vaccine(city_name,city_url,telegram_url):
@@ -28,32 +28,31 @@ def get_vaccine(city_name,city_url,telegram_url):
     queried_result = normalized_table_sessions.query('available_capacity>0 & min_age_limit==18 & available_capacity_dose1>0')
     if queried_result.empty:
         print("Response: No vaccine slots open")
-        message="Response: No vaccine slots open"
-        cursor.execute("INSERT INTO Telegram_messages(city_name,message) values(%s, %s)",(city_name,message))
+        message = "Response: No vaccine slots open"
+        message_status = "Not sent"
+        cursor.execute("INSERT INTO Telegram_messages(city_name,message,message_status) values(%s, %s, %s)",(city_name,message,message_status))
         mydb.commit()
         new_url = message
-
     else:
         vaccination_centers = queried_result.loc[:,['date','name','pincode','vaccine','available_capacity']].drop_duplicates()
         table = vaccination_centers.to_string(columns = ['date','name','pincode','vaccine','available_capacity'], index = False, header = False, line_width = 70, justify = 'left')
         new_url = telegram_url+table
-        cursor.execute("INSERT INTO Telegram_messages(city_name,message) values(%s, %s)",(city_name,new_url))
-        mydb.commit()
-        send_message(new_url,city_name)
         print(new_url)
-        send_message(new_url,city_name)
-
-def send_message(new_url,city_name):
-    cursor = mydb.cursor(buffered=True)
-    cursor.execute("select max(message_sent_time) from Telegram_messages where city_name='%s'" %(city_name))
-    max_time = cursor.fetchone()
-    cursor.execute("select message from Telegram_messages where message_sent_time='%s'" %(max_time))
-    last_message = cursor.fetchone()
-    last_message = str(last_message[0])
-    if new_url == last_message:
-        print("Message already sent")
-    else:
-        requests.get(new_url)
+        cursor = mydb.cursor(buffered=True)
+        cursor.execute("select message from Telegram_messages where message_sent_time=(select max(message_sent_time) from Telegram_messages where city_name='%s') and city_name='%s'" %(city_name, city_name))
+        last_message = cursor.fetchone()
+        last_message = str(last_message[0])
+        print("Last message is ",last_message)
+        if (last_message == new_url):
+            print("Message already sent")
+            message_status = "Not sent"
+            cursor.execute("INSERT INTO Telegram_messages(city_name,message,message_status) values(%s, %s, %s)",(city_name,new_url,message_status))
+            mydb.commit()
+        else:
+            message_status = "Sent"
+            cursor.execute("INSERT INTO Telegram_messages(city_name,message,message_status) values(%s, %s, %s)",(city_name,new_url,message_status))
+            mydb.commit()
+            requests.get(new_url)
 
 while True:
     today = date.today()
