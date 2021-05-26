@@ -33,7 +33,7 @@ class time_control_process():
 
 tcp = time_control_process(60, 60)
 
-def get_vaccine(city_name,city_url,telegram_url):
+def get_vaccine(age,city_name,city_url,telegram_url):
     cursor = mydb.cursor(buffered=True)
     payload = {}
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
@@ -44,7 +44,7 @@ def get_vaccine(city_name,city_url,telegram_url):
     meta=['center_id', 'name', 'address', 'state_name', 'district_name', 'block_name', 'pincode', 'lat', 'long', 'from', 'to', 'fee_type'],
     errors='ignore'
     )
-    queried_result = normalized_table_sessions.query('available_capacity>0 & min_age_limit==18 & available_capacity_dose1>0')
+    queried_result = normalized_table_sessions.query('available_capacity>0 & min_age_limit == @age & available_capacity_dose1>0')
     if queried_result.empty:
         print("Response: No vaccine slots open")
         message = "Response: No vaccine slots open"
@@ -57,7 +57,7 @@ def get_vaccine(city_name,city_url,telegram_url):
         #table = vaccination_centers.to_string(columns = ['date','name','pincode','vaccine','available_capacity'], index = False, header = False, line_width = 70, justify = 'left')
         table =''
         for i in range(len(vaccination_centers)):
-            table = table + '\nDate: ' + str((vaccination_centers['date'].iloc[i]))+'\nHospital: '+'<b>'+str((vaccination_centers['name'].iloc[i]))+'</b>'+'('+str((vaccination_centers['block_name'].iloc[i]))+')'+'\nPincode: '+'<b>'+str((vaccination_centers['pincode'].iloc[i]))+'</b>'+'\nVaccine: '+'<b>'+str((vaccination_centers['vaccine'].iloc[i]))+'</b>'+'\nTotal Available slots: '+'<b>'+str((vaccination_centers['available_capacity'].iloc[i]))+' slots\n</b>'+'\nDose 1 Slots Available: '+'<b>'+str((vaccination_centers['available_capacity_dose1'].iloc[i])) +' slots</b>'+'\nDose 2 Slots Available: '+'<b>'+ str((vaccination_centers['available_capacity_dose2'].iloc[i])) +' slots\n</b>'
+            table = table + '\nDate: ' + str((vaccination_centers['date'].iloc[i]))+'\nHospital: '+'<b>'+str((vaccination_centers['name'].iloc[i]))+'</b>'+'('+str((vaccination_centers['block_name'].iloc[i]))+')'+'\nPincode: '+'<b>'+str((vaccination_centers['pincode'].iloc[i]))+'</b>'+'\nVaccine: '+'<b>'+str((vaccination_centers['vaccine'].iloc[i]))+'</b>'+'\nTotal Available slots: '+'<b>'+str((vaccination_centers['available_capacity'].iloc[i]))+' slots</b>'+'\nDose 1 Slots Available: '+'<b>'+str((vaccination_centers['available_capacity_dose1'].iloc[i])) +' slots</b>'+'\nDose 2 Slots Available: '+'<b>'+ str((vaccination_centers['available_capacity_dose2'].iloc[i])) +' slots\n</b>'
         new_url = telegram_url+'<b>[18-44 years] [First dose slots available]\n</b>'+table+"&parse_mode=html"
         print(new_url)
         cursor = mydb.cursor(buffered=True)
@@ -84,6 +84,8 @@ while True:
         now_hour = datetime.now().hour
         date_edited = today.strftime("%d-%m-%Y")
         date_time_edited = now.strftime("%d-%m-%Y %H:%M:%S")
+        age = 18
+        age_elders = 45
         city1 = "Chennai"
         city_url1 = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=571&date="+date_edited
         telegram_url1 = 'https://api.telegram.org/bot1761680572:AAHg3enK6v3JjMyaCaVr5UMqgmey11HN6WA/sendMessage?chat_id=-1001335725303&text='
@@ -99,23 +101,38 @@ while True:
         city5 = "Madurai"
         city_url5 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=540&date="+date_edited
         telegram_url5 = 'https://api.telegram.org/bot1699880333:AAHCpeud9uZUW_37Ph3WNPSoJE67Bj3JCM4/sendMessage?chat_id=-1001227954447&text='
+        city6 = "Salem"
+        city_url6 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=545&date="+date_edited
+        telegram_url6 = 'https://api.telegram.org/bot1823073510:AAEbbsWW2aVB6jQMJtqQQxA4W0RigNnnnPM/sendMessage?chat_id=-1001404134647&text='
+        telegram_url7 = 'https://api.telegram.org/bot1702698090:AAHcS15pS6OEHVGhQrpJGqGgVwn-4_ct8bk/sendMessage?chat_id=-1001380816650&text='
+        city8 = "Hyderabad"
+        city_url8 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=581&date="+date_edited
+        telegram_url8 = 'https://api.telegram.org/bot1807501550:AAHQJdjoXs4DCA979cm7p3mUQIKugTARNCc/sendMessage?chat_id=-1001267490494&text='
+        city9 = "Mumbai"
+        city_url9 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=395&date="+date_edited
+        telegram_url9 = 'https://api.telegram.org/bot1807501550:AAHQJdjoXs4DCA979cm7p3mUQIKugTARNCc/sendMessage?chat_id=-1001267490494&text='
         print("Trying for Chennai on", date_time_edited)
-        get_vaccine(city1,city_url1,telegram_url1)
+        get_vaccine(age,city1,city_url1,telegram_url1)
         print("Trying for Bengaluru-Urban on", date_time_edited)
-        get_vaccine(city2,city_url2,telegram_url2)
+        get_vaccine(age,city2,city_url2,telegram_url2)
         print("Trying for Bengaluru-BBMP on", date_time_edited)
-        get_vaccine(city3,city_url3,telegram_url3)
+        get_vaccine(age,city3,city_url3,telegram_url3)
         print("Trying for 600096")
-        get_vaccine(city4,city_url4,telegram_url4)
+        get_vaccine(age,city4,city_url4,telegram_url4)
         print("Trying for Madurai")
-        get_vaccine(city5,city_url5,telegram_url5)
+        get_vaccine(age,city5,city_url5,telegram_url5)
+        print("Trying for Salem")
+        get_vaccine(age,city6,city_url6,telegram_url6)
+        #print("Trying for Chennai - Elders on", date_time_edited)
+        #get_vaccine(age_elders,city1,city_url1,telegram_url7)
+        print("Trying for Hyderabad")
+        get_vaccine(age,city8,city_url8,telegram_url8)
         time.sleep(10)
-        print("Executed this")
+        print("End of Try block")
     except Exception as e:
-        print("Comes here")
         print(e)
         print("Restarting the code from local")
-        time.sleep(60)
+        time.sleep(100)
         continue
     else:
         continue
