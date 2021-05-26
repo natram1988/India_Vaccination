@@ -69,10 +69,20 @@ while True:
     city3 = "BBMP"
     city_url3 = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=294&date="+date_edited
     telegram_url3 = 'https://api.telegram.org/bot1760779664:AAE_SRx9Ca5t1ytiG8zwbKeqss_eLps6x4k/sendMessage?chat_id=-1001383423441&text='
+    city4 = "Chennai 600096"
+    city_url4 ='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=600096&date='+date_edited
+    telegram_url4 = 'https://api.telegram.org/bot1810454149:AAEnJXqIiBjvA7RwIlLQvuKnzpxrLAkn1dY/sendMessage?chat_id=-1001203466803&text='
+    city5 = "Madurai"
+    city_url5 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=540&date="+date_edited
+    telegram_url5 = 'https://api.telegram.org/bot1699880333:AAHCpeud9uZUW_37Ph3WNPSoJE67Bj3JCM4/sendMessage?chat_id=-1001227954447&text='
     print("Trying for Chennai on", date_time_edited)
     get_vaccine(city1,city_url1,telegram_url1)
     print("Trying for Bengaluru-Urban on", date_time_edited)
     get_vaccine(city2,city_url2,telegram_url2)
     print("Trying for Bengaluru-BBMP on", date_time_edited)
     get_vaccine(city3,city_url3,telegram_url3)
+    print("Trying for 600096")
+    get_vaccine(city4,city_url4,telegram_url4)
+    print("Trying for Madurai")
+    get_vaccine(city5,city_url5,telegram_url5)
     time.sleep(10)
