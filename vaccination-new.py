@@ -55,11 +55,10 @@ def get_vaccine(city_name,city_url,telegram_url):
     else:
         vaccination_centers = queried_result.loc[:,['date','name','block_name','pincode','vaccine','available_capacity','available_capacity_dose1','available_capacity_dose2']].drop_duplicates()
         #table = vaccination_centers.to_string(columns = ['date','name','pincode','vaccine','available_capacity'], index = False, header = False, line_width = 70, justify = 'left')
-        print(vaccination_centers)
         table =''
         for i in range(len(vaccination_centers)):
             table = table + '\nDate: ' + str((vaccination_centers['date'].iloc[i]))+'\nHospital: '+'<b>'+str((vaccination_centers['name'].iloc[i]))+'</b>'+'('+str((vaccination_centers['block_name'].iloc[i]))+')'+'\nPincode: '+'<b>'+str((vaccination_centers['pincode'].iloc[i]))+'</b>'+'\nVaccine: '+'<b>'+str((vaccination_centers['vaccine'].iloc[i]))+'</b>'+'\nTotal Available slots: '+'<b>'+str((vaccination_centers['available_capacity'].iloc[i]))+' slots\n</b>'+'\nDose 1 Slots Available: '+'<b>'+str((vaccination_centers['available_capacity_dose1'].iloc[i])) +' slots</b>'+'\nDose 2 Slots Available: '+'<b>'+ str((vaccination_centers['available_capacity_dose2'].iloc[i])) +' slots\n</b>'
-        new_url = telegram_url+'<b>[18-44 years] [First dose]\n</b>'+table+"&parse_mode=html"
+        new_url = telegram_url+'<b>[18-44 years] [First dose slots available]\n</b>'+table+"&parse_mode=html"
         print(new_url)
         cursor = mydb.cursor(buffered=True)
         cursor.execute("select message from Telegram_messages where message_sent_time=(select max(message_sent_time) from Telegram_messages where city_name='%s') and city_name='%s'" %(city_name, city_name))
