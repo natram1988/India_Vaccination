@@ -123,17 +123,6 @@ while True:
         telegram_url11 = 'https://api.telegram.org/bot1467732009:AAEvNhb9V23ZiWhU_-qbf4Zec7zbqe8SdAk/sendMessage?chat_id=-1001294351334&text='
         print("Trying for Chennai on", date_time_edited)
         get_vaccine(age,city1,city_url1,telegram_url1)
-        print("Trying for Chennai - 600096 on", date_time_edited)
-        get_vaccine(age,city1,city_url4,telegram_url1)
-        print("Trying for Chennai - 600006 on", date_time_edited)
-        pin_600006_url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=600006&date='+date_edited
-        get_vaccine(age,city1,pin_600006_url,telegram_url1)
-        print("Trying for Chennai - 600030 on", date_time_edited)
-        pin_600030_url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=600030&date='+date_edited
-        get_vaccine(age,city1,pin_600030_url,telegram_url1)
-        print("Trying for Chennai - 600018 on", date_time_edited)
-        pin_600018_url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=600018&date='+date_edited
-        get_vaccine(age,city1,pin_600018_url,telegram_url1)
         print("Trying for Bengaluru-Urban on", date_time_edited)
         get_vaccine(age,city2,city_url2,telegram_url2)
         print("Trying for Bengaluru-BBMP on", date_time_edited)
