@@ -110,7 +110,10 @@ while True:
         telegram_url8 = 'https://api.telegram.org/bot1807501550:AAHQJdjoXs4DCA979cm7p3mUQIKugTARNCc/sendMessage?chat_id=-1001267490494&text='
         city9 = "Mumbai"
         city_url9 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=395&date="+date_edited
-        telegram_url9 = 'https://api.telegram.org/bot1807501550:AAHQJdjoXs4DCA979cm7p3mUQIKugTARNCc/sendMessage?chat_id=-1001267490494&text='
+        telegram_url9 = 'https://api.telegram.org/bot1803859695:AAGFsDfHsaX2WCIS2Fjfrh_886FI0UQdR4U/sendMessage?chat_id=-1001289913000&text='
+        city10 = "Gurgaon"
+        city_url10 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=188&date="+date_edited
+        telegram_url10 = 'https://api.telegram.org/bot1881126551:AAGp57bhqtxd1gkOKR_FS4nhK1jt5XsV19U/sendMessage?chat_id=-1001305001942&text='
         print("Trying for Chennai on", date_time_edited)
         get_vaccine(age,city1,city_url1,telegram_url1)
         print("Trying for Bengaluru-Urban on", date_time_edited)
@@ -127,12 +130,16 @@ while True:
         #get_vaccine(age_elders,city1,city_url1,telegram_url7)
         print("Trying for Hyderabad")
         get_vaccine(age,city8,city_url8,telegram_url8)
+        print("Trying for Mumbai")
+        get_vaccine(age,city9,city_url9,telegram_url9)
+        print("Trying for Gurgaon")
+        get_vaccine(age,city10,city_url10,telegram_url10)
         time.sleep(10)
         print("End of Try block")
     except Exception as e:
         print(e)
         print("Restarting the code from local")
-        time.sleep(100)
+        time.sleep(10)
         continue
     else:
         continue
