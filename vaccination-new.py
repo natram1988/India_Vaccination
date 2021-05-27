@@ -114,6 +114,9 @@ while True:
         city10 = "Gurgaon"
         city_url10 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=188&date="+date_edited
         telegram_url10 = 'https://api.telegram.org/bot1881126551:AAGp57bhqtxd1gkOKR_FS4nhK1jt5XsV19U/sendMessage?chat_id=-1001305001942&text='
+        city11 = "Aurangabad,Bihar"
+        city_url11 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=77&date="+date_edited
+        telegram_url11 = 'https://api.telegram.org/bot1467732009:AAEvNhb9V23ZiWhU_-qbf4Zec7zbqe8SdAk/sendMessage?chat_id=-1001294351334&text='
         print("Trying for Chennai on", date_time_edited)
         get_vaccine(age,city1,city_url1,telegram_url1)
         print("Trying for Bengaluru-Urban on", date_time_edited)
@@ -134,6 +137,8 @@ while True:
         get_vaccine(age,city9,city_url9,telegram_url9)
         print("Trying for Gurgaon")
         get_vaccine(age,city10,city_url10,telegram_url10)
+        print("Trying for Aurangabad,Bihar")
+        get_vaccine(age,city11,city_url11,telegram_url11)
         time.sleep(10)
         print("End of Try block")
     except Exception as e:
