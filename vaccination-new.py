@@ -44,9 +44,7 @@ def get_vaccine(age,city_name,city_url,telegram_url):
     meta=['center_id', 'name', 'address', 'state_name', 'district_name', 'block_name', 'pincode', 'lat', 'long', 'from', 'to', 'fee_type'],
     errors='ignore'
     )
-    normalized_table_sessions.to_csv("Sessions_new.csv")
     queried_result = normalized_table_sessions.query('available_capacity>0 & min_age_limit == @age & available_capacity_dose1>0')
-    queried_result.to_csv("queried_result.csv")
     if queried_result.empty:
         print("Response: No vaccine slots open")
         message = "Response: No vaccine slots open"
