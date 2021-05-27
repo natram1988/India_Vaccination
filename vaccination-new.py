@@ -133,8 +133,6 @@ while True:
         get_vaccine(age,city5,city_url5,telegram_url5)
         print("Trying for Salem")
         get_vaccine(age,city6,city_url6,telegram_url6)
-        #print("Trying for Chennai - Elders on", date_time_edited)
-        #get_vaccine(age_elders,city1,city_url1,telegram_url7)
         print("Trying for Hyderabad")
         get_vaccine(age,city8,city_url8,telegram_url8)
         print("Trying for Mumbai")
@@ -143,6 +141,12 @@ while True:
         get_vaccine(age,city10,city_url10,telegram_url10)
         print("Trying for Aurangabad,Bihar")
         get_vaccine(age,city11,city_url11,telegram_url11)
+        chennai_pincode=[600030,600006,600096,600087,600015,600091,600061,600042,600020,600085,600081,600100,600102,600042,600020,600018,600035,600010]
+        for i in chennai_pincode:
+            print("Trying for ",i)
+            city_name='From '+ str(i)
+            city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
+            get_vaccine(age,city_name,city_url_loop,telegram_url1)
         time.sleep(10)
         print("End of Try block")
     except Exception as e:
