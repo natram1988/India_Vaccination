@@ -44,7 +44,9 @@ def get_vaccine(age,city_name,city_url,telegram_url):
     meta=['center_id', 'name', 'address', 'state_name', 'district_name', 'block_name', 'pincode', 'lat', 'long', 'from', 'to', 'fee_type'],
     errors='ignore'
     )
+    normalized_table_sessions.to_csv("Sessions_new.csv")
     queried_result = normalized_table_sessions.query('available_capacity>0 & min_age_limit == @age & available_capacity_dose1>0')
+    queried_result.to_csv("queried_result.csv")
     if queried_result.empty:
         print("Response: No vaccine slots open")
         message = "Response: No vaccine slots open"
@@ -58,7 +60,7 @@ def get_vaccine(age,city_name,city_url,telegram_url):
         table =''
         for i in range(len(vaccination_centers)):
             table = table + '\nDate: ' + str((vaccination_centers['date'].iloc[i]))+'\nHospital: '+'<b>'+str((vaccination_centers['name'].iloc[i]))+'</b>'+'('+str((vaccination_centers['block_name'].iloc[i]))+')'+'\nPincode: '+'<b>'+str((vaccination_centers['pincode'].iloc[i]))+'</b>'+'\nVaccine: '+'<b>'+str((vaccination_centers['vaccine'].iloc[i]))+'</b>'+'\nTotal Available slots: '+'<b>'+str((vaccination_centers['available_capacity'].iloc[i]))+' slots</b>'+'\nDose 1 Slots Available: '+'<b>'+str((vaccination_centers['available_capacity_dose1'].iloc[i])) +' slots</b>'+'\nDose 2 Slots Available: '+'<b>'+ str((vaccination_centers['available_capacity_dose2'].iloc[i])) +' slots\n</b>'
-        new_url = telegram_url+'<b>[18-44 years] [First dose slots available]\n</b>'+table+"&parse_mode=html"
+        new_url = telegram_url+'<b>[18-44 years] [First dose slots available]\n</b>'+table+"\n You can book this slot at https://selfregistration.cowin.gov.in/"+"&parse_mode=html"
         print(new_url)
         cursor = mydb.cursor(buffered=True)
         cursor.execute("select message from Telegram_messages where message_sent_time=(select max(message_sent_time) from Telegram_messages where city_name='%s') and city_name='%s'" %(city_name, city_name))
@@ -127,8 +129,8 @@ while True:
         get_vaccine(age,city2,city_url2,telegram_url2)
         print("Trying for Bengaluru-BBMP on", date_time_edited)
         get_vaccine(age,city3,city_url3,telegram_url3)
-        print("Trying for 600096")
-        get_vaccine(age,city4,city_url4,telegram_url4)
+        #print("Trying for 600096")
+        #get_vaccine(age,city4,city_url4,telegram_url4)
         print("Trying for Madurai")
         get_vaccine(age,city5,city_url5,telegram_url5)
         print("Trying for Salem")
@@ -141,12 +143,30 @@ while True:
         get_vaccine(age,city10,city_url10,telegram_url10)
         print("Trying for Aurangabad,Bihar")
         get_vaccine(age,city11,city_url11,telegram_url11)
-        chennai_pincode=[600030,600006,600096,600087,600015,600091,600061,600042,600020,600085,600081,600100,600102,600042,600020,600018,600035,600010]
+        chennai_pincode=[600028,600030,600006,600096,600087,600015,600091,600061,600042,600020,600085,600081,600100,600102,600042,600020,600018,600035,600010]
         for i in chennai_pincode:
-            print("Trying for ",i)
+            print("Trying for",i)
             city_name='From '+ str(i)
             city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
             get_vaccine(age,city_name,city_url_loop,telegram_url1)
+        bengaluru_pincode=[560099,560036,560023,560029,562106,560007,562157,560076,560011,560098,560099,560086,560054,560001,560045,560010,560047,560103,560035,560011]
+        for i in bengaluru_pincode:
+            print("Trying for ",i)
+            city_name='From '+ str(i)
+            city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
+            get_vaccine(age,city_name,city_url_loop,telegram_url2)
+        #aurangabad_pincode=[824125,824203,824143,824101,824208,824120,824203,824202,824124,824301,824208,824123]
+        #for i in aurangabad_pincode:
+        #    print("Trying for ",i)
+        #    city_name='From '+ str(i)
+        #    city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
+        #    get_vaccine(age,city_name,city_url_loop,telegram_url11)
+        hyderabad_pincode=[500082,500058,500029,500003,500033,500004,500034,500038,500036]
+        for i in hyderabad_pincode:
+            print("Trying for ",i)
+            city_name='From '+ str(i)
+            city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
+            get_vaccine(age,city_name,city_url_loop,telegram_url8)
         time.sleep(10)
         print("End of Try block")
     except Exception as e:
