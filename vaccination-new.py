@@ -71,10 +71,14 @@ def get_vaccine(age,city_name,city_url,telegram_url):
             cursor.execute("INSERT INTO Telegram_messages(city_name,message,message_status) values(%s, %s, %s)",(city_name,new_url,message_status))
             mydb.commit()
         else:
-            message_status = "Sent"
-            cursor.execute("INSERT INTO Telegram_messages(city_name,message,message_status) values(%s, %s, %s)",(city_name,new_url,message_status))
-            mydb.commit()
-            requests.get(new_url)
+            try:
+                message_status = "Sent"
+                cursor.execute("INSERT INTO Telegram_messages(city_name,message,message_status) values(%s, %s, %s)",(city_name,new_url,message_status))
+                mydb.commit()
+                requests.get(new_url)
+            except Exception as e:
+                print(e)
+                
 
 while True:
     tcp.manage()
