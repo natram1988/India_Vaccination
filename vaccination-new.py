@@ -78,7 +78,7 @@ def get_vaccine(age,city_name,city_url,telegram_url):
                 requests.get(new_url)
             except Exception as e:
                 print(e)
-                
+
 
 while True:
     tcp.manage()
@@ -92,13 +92,13 @@ while True:
         age_elders = 45
         city1 = "Chennai"
         city_url1 = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=571&date="+date_edited
-        telegram_url1 = 'https://api.telegram.org/bot1761680572:AAHg3enK6v3JjMyaCaVr5UMqgmey11HN6WA/sendMessage?chat_id=-1001335725303&text='
+        telegram_url1 = 'https://api.telegram.org/bot1761680572:AAGibV1_ZI_F92mtr9pQqH-rXF58V-7Xkf4/sendMessage?chat_id=-1001335725303&text='
         city2 = "Bengaluru Urban"
         city_url2 = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=265&date="+date_edited
-        telegram_url2 = 'https://api.telegram.org/bot1760779664:AAE_SRx9Ca5t1ytiG8zwbKeqss_eLps6x4k/sendMessage?chat_id=-1001383423441&text='
+        telegram_url2 = 'https://api.telegram.org/bot1760779664:AAHoHoy6YUmQB9WXuID4dquwb9WWWGNzP7Q/sendMessage?chat_id=-1001383423441&text='
         city3 = "BBMP"
         city_url3 = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=294&date="+date_edited
-        telegram_url3 = 'https://api.telegram.org/bot1760779664:AAE_SRx9Ca5t1ytiG8zwbKeqss_eLps6x4k/sendMessage?chat_id=-1001383423441&text='
+        telegram_url3 = 'https://api.telegram.org/bot1760779664:AAHoHoy6YUmQB9WXuID4dquwb9WWWGNzP7Q/sendMessage?chat_id=-1001383423441&text='
         city4 = "Chennai 600096"
         city_url4 ='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=600096&date='+date_edited
         telegram_url4 = 'https://api.telegram.org/bot1810454149:AAEnJXqIiBjvA7RwIlLQvuKnzpxrLAkn1dY/sendMessage?chat_id=-1001203466803&text='
