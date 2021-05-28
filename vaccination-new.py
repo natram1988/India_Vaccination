@@ -121,44 +121,45 @@ while True:
         city11 = "Aurangabad,Bihar"
         city_url11 ="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=77&date="+date_edited
         telegram_url11 = 'https://api.telegram.org/bot1467732009:AAEvNhb9V23ZiWhU_-qbf4Zec7zbqe8SdAk/sendMessage?chat_id=-1001294351334&text='
+        #Instance1
         print("Trying for Chennai on", date_time_edited)
         get_vaccine(age,city1,city_url1,telegram_url1)
-        print("Trying for Bengaluru-Urban on", date_time_edited)
-        get_vaccine(age,city2,city_url2,telegram_url2)
-        print("Trying for Bengaluru-BBMP on", date_time_edited)
-        get_vaccine(age,city3,city_url3,telegram_url3)
-        #print("Trying for 600096")
-        #get_vaccine(age,city4,city_url4,telegram_url4)
-        print("Trying for Madurai")
-        get_vaccine(age,city5,city_url5,telegram_url5)
-        print("Trying for Salem")
-        get_vaccine(age,city6,city_url6,telegram_url6)
-        print("Trying for Hyderabad")
-        get_vaccine(age,city8,city_url8,telegram_url8)
-        print("Trying for Mumbai")
-        get_vaccine(age,city9,city_url9,telegram_url9)
-        print("Trying for Gurgaon")
-        get_vaccine(age,city10,city_url10,telegram_url10)
-        print("Trying for Aurangabad,Bihar")
-        get_vaccine(age,city11,city_url11,telegram_url11)
         chennai_pincode=[600028,600030,600006,600096,600087,600015,600091,600061,600042,600020,600085,600081,600100,600102,600042,600020,600018,600035,600010]
         for i in chennai_pincode:
             print("Trying for",i)
             city_name='From '+ str(i)
             city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
             get_vaccine(age,city_name,city_url_loop,telegram_url1)
-        bengaluru_pincode=[560099,560036,560023,560029,562106,560007,562157,560076,560011,560098,560099,560086,560054,560001,560045,560010,560047,560103,560035,560011]
+        print("Trying for Madurai")
+        get_vaccine(age,city5,city_url5,telegram_url5)
+        print("Trying for Salem")
+        get_vaccine(age,city6,city_url6,telegram_url6)
+        #Instance3
+        print("Trying for Bengaluru-Urban on", date_time_edited)
+        get_vaccine(age,city2,city_url2,telegram_url2)
+        print("Trying for Bengaluru-BBMP on", date_time_edited)
+        get_vaccine(age,city3,city_url3,telegram_url3)
+        bengaluru_pincode=[560020,560100,560099,560036,560023,560029,562106,560007,562157,560076,560011,560098,560099,560086,560054,560001,560045,560010,560047,560103,560035,560011]
         for i in bengaluru_pincode:
             print("Trying for ",i)
             city_name='From '+ str(i)
             city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
             get_vaccine(age,city_name,city_url_loop,telegram_url2)
-        #aurangabad_pincode=[824125,824203,824143,824101,824208,824120,824203,824202,824124,824301,824208,824123]
-        #for i in aurangabad_pincode:
-        #    print("Trying for ",i)
-        #    city_name='From '+ str(i)
-        #    city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
-        #    get_vaccine(age,city_name,city_url_loop,telegram_url11)
+        print("Trying for Gurgaon")
+        get_vaccine(age,city10,city_url10,telegram_url10)
+        print("Trying for Mumbai")
+        get_vaccine(age,city9,city_url9,telegram_url9)
+        #Instance5
+        print("Trying for Hyderabad")
+        get_vaccine(age,city8,city_url8,telegram_url8)
+        print("Trying for Aurangabad,Bihar")
+        get_vaccine(age,city11,city_url11,telegram_url11)
+        aurangabad_pincode=[824125,824203,824143,824101,824208,824120,824203,824202,824124,824301,824208,824123]
+        for i in aurangabad_pincode:
+            print("Trying for ",i)
+            city_name='From '+ str(i)
+            city_url_loop='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode='+ str(i) +'&date='+date_edited
+            get_vaccine(age,city_name,city_url_loop,telegram_url11)
         hyderabad_pincode=[500082,500058,500029,500003,500033,500004,500034,500038,500036]
         for i in hyderabad_pincode:
             print("Trying for ",i)
